@@ -2,9 +2,9 @@
 
 **Team Members :-**
 
-    IT20128722 - R.C.S.Ranasgala
+    IT20128722 - R.C.S.Ranasgala (Employee Management)
 
-    IT20154226 - M.M.K.L.Marasinghe
+    IT20154226 - M.M.K.L.Marasinghe (User Management)
 
     IT20201296 -
 
