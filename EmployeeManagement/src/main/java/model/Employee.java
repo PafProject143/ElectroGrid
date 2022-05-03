@@ -16,7 +16,7 @@ public class Employee {
 			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/emp", "root", "root");
 
 			// For testing
-			System.out.print("Successfully connected");
+			System.out.print("successfully connected.");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -24,15 +24,15 @@ public class Employee {
 		return con;
 	}
 
-	// Insert
-	public String insertEmployee(String ename, String gender, String email, int phonenumber) {
+	// Create
+	public String insertEmployee(String ename, String gender, String email, String phonenumber) {
 		String output = "";
 
 		try {
 			Connection con = connect();
 
 			if (con == null) {
-				return "Error while connecting to the database";
+				return "error while connecting to the database for inserting.";
 			}
 
 			// create a prepared statement
@@ -46,15 +46,15 @@ public class Employee {
 			preparedStmt.setString(2, ename);
 			preparedStmt.setString(3, gender);
 			preparedStmt.setString(4, email);
-			preparedStmt.setInt(5, phonenumber);
+			preparedStmt.setString(5, phonenumber);
 
 			// execute the statement
 			preparedStmt.execute();
 			con.close();
 
-			output = "Inserted successfully";
+			output = "successfully inserted.";
 		} catch (Exception e) {
-			output = "Error while inserting";
+			output = "error while inserting an employee.";
 			System.err.println(e.getMessage());
 		}
 		return output;
@@ -68,11 +68,11 @@ public class Employee {
 			Connection con = connect();
 
 			if (con == null) {
-				return "Error while connecting to the database for reading.";
+				return "error while connecting to the database for reading.";
 			}
 
 			// Prepare the html table to be displayed
-			output = "<table border='1'><tr><th>Employee Name</th>" + "<th>Gender</th><th>Email</th>"
+			output = "<table border='2'><tr><th>Employee Name</th>" + "<th>Gender</th><th>Email</th>"
 					+ "<th>Phone Number</th>" + "<th>Update</th><th>Remove</th></tr>";
 
 			String query = "select * from employees";
@@ -81,11 +81,12 @@ public class Employee {
 
 			// iterate through the rows in the result set
 			while (rs.next()) {
+				@SuppressWarnings("unused")
 				String eid = Integer.toString(rs.getInt("eid"));
 				String ename = rs.getString("ename");
 				String gender = rs.getString("gender");
 				String email = rs.getString("email");
-				int phonenumber = rs.getInt("phonenumber");
+				String phonenumber = rs.getString("phonenumber");
 
 				// Add a row into the html table
 				output += "<tr><td>" + ename + "</td>";
@@ -94,10 +95,8 @@ public class Employee {
 				output += "<td>" + phonenumber + "</td>";
 
 				// buttons
-				output += "<td><input name='btnUpdate' " + " type='button' value='Update'></td>"
-						+ "<td><form method='post'>" + "<input name='btnRemove' "
-						+ " type='submit' value='Remove'>" + "<input name='eid' type='hidden' " + " value='" + eid
-						+ "'>" + "</form></td></tr>";
+				output += "<td><input name='btnUpdate' type='button' value='Update'></td>"
+						+ "<td><input name='btnRemove' type='submit' value='Remove'></td>";
 			}
 
 			con.close();
@@ -105,21 +104,21 @@ public class Employee {
 			// Complete the html table
 			output += "</table>";
 		} catch (Exception e) {
-			output = "Error while reading employees.";
+			output = "error while reading employees.";
 			System.err.println(e.getMessage());
 		}
 		return output;
 	}
 
 	// Update
-	public String updateEmployee(String ID, String ename, String gender, String email, int phonenumber) {
+	public String updateEmployee(String ID, String ename, String gender, String email, String phonenumber) {
 		String output = "";
 
 		try {
 			Connection con = connect();
 
 			if (con == null) {
-				return "Error while connecting to the database for updating.";
+				return "error while connecting to the database for updating.";
 			}
 
 			// create a prepared statement
@@ -130,15 +129,15 @@ public class Employee {
 			preparedStmt.setString(1, ename);
 			preparedStmt.setString(2, gender);
 			preparedStmt.setString(3, email);
-			preparedStmt.setInt(4, phonenumber);
+			preparedStmt.setString(4, phonenumber);
 			preparedStmt.setInt(5, Integer.parseInt(ID));
 
 			// execute the statement
 			preparedStmt.execute();
 			con.close();
-			output = "Updated successfully";
+			output = "successfully updated.";
 		} catch (Exception e) {
-			output = "Error while updating an employee.";
+			output = "error while updating an employee.";
 			System.err.println(e.getMessage());
 		}
 		return output;
@@ -154,7 +153,7 @@ public class Employee {
 			Connection con = connect();
 
 			if (con == null) {
-				return "Error while connecting to the database for deleting.";
+				return "error while connecting to the database for deleting.";
 			}
 
 			// create a prepared statement
@@ -167,15 +166,15 @@ public class Employee {
 			// execute the statement
 			preparedStmt.execute();
 			con.close();
-			output = "Deleted successfully";
+			output = "successfully deleted.";
 
 		} catch (Exception e) {
-			output = "Error while deleting an employee.";
+			output = "error while deleting an employee.";
 			System.err.println(e.getMessage());
 		}
 
 		return output;
 
 	}
-	
+
 }

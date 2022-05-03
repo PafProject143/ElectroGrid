@@ -30,7 +30,7 @@ public class EmployeeService {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String insertEmployee(@FormParam("ename") String ename, @FormParam("gender") String gender,
-			@FormParam("email") String email, @FormParam("phonenumber") int phonenumber) {
+			@FormParam("email") String email, @FormParam("phonenumber") String phonenumber) {
 		String output = employeeObj.insertEmployee(ename, gender, email, phonenumber);
 		return output;
 	}
@@ -42,12 +42,13 @@ public class EmployeeService {
 	public String updateEmployee(String employeeData) {
 		// Convert the input string to a JSON object
 		JsonObject employeeObject = new JsonParser().parse(employeeData).getAsJsonObject();
+
 		// Read the values from the JSON object
 		String eid = employeeObject.get("eid").getAsString();
 		String ename = employeeObject.get("ename").getAsString();
 		String gender = employeeObject.get("gender").getAsString();
 		String email = employeeObject.get("email").getAsString();
-		int phonenumber = employeeObject.get("phonenumber").getAsInt();
+		String phonenumber = employeeObject.get("phonenumber").getAsString();
 		String output = employeeObj.updateEmployee(eid, ename, gender, email, phonenumber);
 		return output;
 	}
